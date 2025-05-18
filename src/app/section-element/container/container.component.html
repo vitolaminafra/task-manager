@@ -1,0 +1,25 @@
+<div class="ml-[16rem] p-4 bg-white dark:bg-neutral-800 h-screen">
+  <h1 class="text-2xl font-bold text-gray-800 dark:text-white pb-2 mb-3">
+    Tasks
+  </h1>
+  <div class="grid grid-cols-2 gap-4">
+    <app-task-card
+      *ngFor="let task of tasks"
+      [task]="task"
+      (openTaskModalEmitter)="openTaskModal($event)"
+    />
+  </div>
+
+  <!--  <button
+    type="button"
+    class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+    aria-haspopup="dialog"
+    aria-expanded="false"
+    aria-controls="task-modal"
+    data-hs-overlay="#task-modal"
+  >
+    Vertically centered modal
+  </button>-->
+</div>
+
+<app-task-modal [task]="selectedTask" />
