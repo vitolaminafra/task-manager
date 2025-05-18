@@ -6,6 +6,7 @@ import HSOverlay from '@preline/overlay';
 import { NgForOf } from '@angular/common';
 import { TabService } from '../../../service/tab.service';
 import { TaskService } from '../../../service/task.service';
+import { Tab } from '../../class/tab';
 
 @Component({
   selector: 'app-container',
@@ -15,6 +16,7 @@ import { TaskService } from '../../../service/task.service';
 })
 export class ContainerComponent implements OnInit {
   tasks: Task[] = [];
+  selectedTab: Tab | undefined = undefined;
 
   constructor(
     private tabService: TabService,
@@ -25,7 +27,9 @@ export class ContainerComponent implements OnInit {
     this.taskService.tasks$.subscribe((tasks) => {
       this.tasks = tasks;
     });
+
     this.tabService.currentTab$.subscribe((tab) => {
+      this.selectedTab = tab;
       this.tasks = [];
       tab!.id % 2 == 0
         ? this.taskService.generateMockTasksOne()

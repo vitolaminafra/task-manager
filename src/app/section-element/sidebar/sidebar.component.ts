@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Circle, LucideAngularModule, SquareCheck } from 'lucide-angular';
+import {
+  Circle,
+  LucideAngularModule,
+  Moon,
+  SquareCheck,
+  Sun,
+} from 'lucide-angular';
 import { NgClass, NgForOf } from '@angular/common';
 import { Tab } from '../../class/tab';
 import { TabService } from '../../../service/tab.service';
+import { ThemeService } from '../../../service/theme.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,9 +23,15 @@ export class SidebarComponent implements OnInit {
   protected readonly GridIcon = Circle;
   protected readonly CompletedIcon = SquareCheck;
 
+  protected readonly MoonIcon = Moon;
+  protected readonly SunIcon = Sun;
+
   protected tabs: Tab[] = [];
 
-  constructor(private tabService: TabService) {}
+  constructor(
+    private tabService: TabService,
+    protected themeService: ThemeService,
+  ) {}
 
   ngOnInit() {
     this.tabService.tabs$.subscribe((tabs) => {
@@ -32,5 +45,9 @@ export class SidebarComponent implements OnInit {
     this.tabs[event].select();
     this.selectedTabPosition = event;
     this.tabService.changeTab(this.tabs[event]);
+  }
+
+  toggleDarkMode() {
+    this.themeService.toggleDarkMode();
   }
 }

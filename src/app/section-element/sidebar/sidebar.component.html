@@ -83,6 +83,18 @@
         </ul>
       </div>
     </nav>
+    <div class="flex p-4">
+      <button
+        type="button"
+        class="flex shrink-0 justify-center items-center gap-2 size-9.5 text-sm font-medium rounded-lg border border-transparent bg-transparent text-black hover:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none"
+        (click)="toggleDarkMode()"
+      >
+        <lucide-angular
+          [img]="themeService.isDarkMode() ? SunIcon : MoonIcon"
+          [size]="18"
+        ></lucide-angular>
+      </button>
+    </div>
     <!-- End Body -->
   </div>
 </div>
