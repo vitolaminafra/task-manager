@@ -19,12 +19,12 @@
             id="task-modal-label"
             class="font-bold text-gray-800 dark:text-white"
           >
-            {{ task != null ? task!.title : "" }}
+            {{ selectedTask ? selectedTask!.title : "" }}
           </h3>
           <p
             class="mt-1 text-xs font-medium uppercase text-gray-500 dark:text-neutral-500"
           >
-            {{ task != null ? task!.subtitle : "" }}
+            {{ selectedTask ? selectedTask!.subtitle : "" }}
           </p>
         </div>
 
@@ -55,12 +55,14 @@
       <div class="p-4 overflow-y-auto">
         <p
           class="text-gray-800 dark:text-neutral-400"
-          [ngClass]="{ 'mb-3': task != null && task!.hasAttachment }"
+          [ngClass]="{
+            'mb-3': selectedTask ? selectedTask!.hasAttachment : false,
+          }"
         >
-          {{ task != null ? task!.description : "" }}
+          {{ selectedTask ? selectedTask!.description : "" }}
         </p>
         <img
-          *ngIf="task != null && task!.hasAttachment"
+          *ngIf="selectedTask ? selectedTask!.hasAttachment : false"
           src="https://images.unsplash.com/photo-1633114128174-2f8aa49759b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
           alt="task-image"
         />
@@ -69,11 +71,19 @@
         class="flex justify-between items-center gap-x-2 py-3 px-4 border-t border-gray-200 dark:border-neutral-700"
       >
         <app-priority-badge
-          [priority]="task != null ? task!.priority : PriorityEnum.LOW"
+          [priority]="
+            selectedTask
+              ? selectedTask!.isCompleted
+                ? PriorityEnum.DONE
+                : selectedTask!.priority
+              : PriorityEnum.LOW
+          "
         />
         <button
+          *ngIf="selectedTask ? !selectedTask!.isCompleted : false"
           type="button"
           class="py-1 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-teal-500 focus:outline-hidden hover:text-teal-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-teal-800/30 dark:hover:text-teal-400 dark:focus:text-teal-400"
+          (click)="markAsCompleted()"
         >
           Mark as completed
         </button>

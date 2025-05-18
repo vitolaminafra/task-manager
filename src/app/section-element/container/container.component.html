@@ -6,7 +6,7 @@
     <app-task-card
       *ngFor="let task of tasks"
       [task]="task"
-      (openTaskModalEmitter)="openTaskModal($event)"
+      (openTaskModalEmitter)="openTaskModal()"
     />
   </div>
 
@@ -22,4 +22,4 @@
   </button>-->
 </div>
 
-<app-task-modal [task]="selectedTask" />
+<app-task-modal />

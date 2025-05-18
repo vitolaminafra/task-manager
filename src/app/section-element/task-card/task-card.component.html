@@ -51,6 +51,7 @@
       *ngIf="!task!.isCompleted"
       type="button"
       class="py-1 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-teal-500 focus:outline-hidden hover:text-teal-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-teal-800/30 dark:hover:text-teal-400 dark:focus:text-teal-400"
+      (click)="markAsCompleted()"
     >
       Mark as completed
     </button>

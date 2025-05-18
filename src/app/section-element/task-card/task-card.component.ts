@@ -3,6 +3,7 @@ import { PriorityBadgeComponent } from '../../base-element/priority-badge/priori
 import { PriorityEnum } from '../../model/priority.enum';
 import { Task } from '../../class/task';
 import { NgClass, NgIf } from '@angular/common';
+import { TaskService } from '../../../service/task.service';
 
 @Component({
   selector: 'app-task-card',
@@ -11,12 +12,19 @@ import { NgClass, NgIf } from '@angular/common';
   styleUrl: './task-card.component.css',
 })
 export class TaskCardComponent {
-  @Input() task: Task | null = null;
+  @Input() task: Task | undefined = undefined;
   @Output() openTaskModalEmitter: EventEmitter<Task> = new EventEmitter<Task>();
 
   protected readonly PriorityEnum = PriorityEnum;
 
+  constructor(private taskService: TaskService) {}
+
   public openTaskModal() {
+    this.taskService.setSelectedTask(this.task);
     this.openTaskModalEmitter.emit(this.task!);
+  }
+
+  markAsCompleted() {
+    this.task!.isCompleted = true;
   }
 }
