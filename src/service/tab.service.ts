@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Tab } from '../class/tab';
-import { MockData } from '../utility/mock-data';
 
 @Injectable({
   providedIn: 'root',
@@ -29,9 +28,10 @@ export class TabService {
       parsedTabs.forEach((tab: any) => {
         this.tabsSubject.next([
           ...this.tabsSubject.getValue(),
-          new Tab(tab.title, tab.isCompleted, false),
+          new Tab(tab.title, tab.isCompleted, false, tab.id),
         ]);
       });
+      this.changeSelectedTab(parsedTabs[0]);
     }
   }
 
@@ -54,16 +54,9 @@ export class TabService {
     this.changeSelectedTab(undefined);
 
     localStorage.setItem('tabs', JSON.stringify(this.tabsSubject.getValue()));
-
-    //this.initializeTabs();
   }
 
-  saveCurrentState() {
-    localStorage.setItem('tabs', JSON.stringify(this.tabsSubject.getValue()));
-  }
-
-  /* MOCK DATA FUNCTIONS */
-  generateMockTabs() {
-    this.tabsSubject.next([...MockData.exampleTabs]);
+  getCurrentTab(): Tab | undefined {
+    return this.currentTabSubject.getValue();
   }
 }

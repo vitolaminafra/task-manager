@@ -12,6 +12,7 @@ import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
 import { PriorityEnum } from '../../../enum/priority.enum';
 import { PrioritySelectorComponent } from '../../base-element/priority-selector/priority-selector.component';
 import { TaskService } from '../../../service/task.service';
+import { Task } from '../../../class/task';
 
 @Component({
   selector: 'app-add-task-modal',
@@ -53,13 +54,24 @@ export class AddTaskModalComponent {
       const reader = new FileReader();
       reader.readAsDataURL(this.selectedAttachment!);
       reader.onload = (result) => {
-        newTask.attachment = result.target?.result;
+        this.generateTaskObject(newTask, result.target?.result as string);
       };
     } else {
-      newTask.attachment = '';
+      this.generateTaskObject(newTask, '');
     }
+  }
 
-    this.taskService.addTask(newTask);
+  private generateTaskObject(newTask: any, image: string) {
+    const taskToAdd = new Task(
+      newTask.title,
+      newTask.subtitle,
+      newTask.description,
+      newTask.priority,
+      image,
+      false,
+    );
+
+    this.taskService.addTask(taskToAdd);
 
     this.resetForm();
     HSOverlay.close('#add-task-modal');
@@ -74,5 +86,12 @@ export class AddTaskModalComponent {
   protected onFileChange($event: Event) {
     this.selectedAttachment = ($event.target as HTMLInputElement)
       .files![0] as File;
+  }
+
+  isFormValid() {
+    return (
+      this.addTaskFormGroup.valid &&
+      this.prioritySelector?.selectedPriority != undefined
+    );
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Task } from '../class/task';
-import { MockData } from '../utility/mock-data';
+import { TabService } from './tab.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,19 +15,44 @@ export class TaskService {
   );
   selectedTask$ = this.selectedTaskSubject.asObservable();
 
-  constructor() {}
-
-  getTasks(): Observable<Task[]> {
-    return this.tasks$;
+  constructor(private tabService: TabService) {
+    this.initializeTasks();
   }
 
-  setTasks(tasks: Task[]): void {
-    this.tasksSubject.next(tasks);
+  public initializeTasks(): void {
+    this.tabService.currentTab$.subscribe((tab) => {
+      this.tasksSubject.next([]);
+      if (tab != undefined) {
+        const savedTasksByTab = localStorage.getItem(tab!.id);
+
+        const parsedTasks = savedTasksByTab ? JSON.parse(savedTasksByTab) : [];
+        if (parsedTasks.length > 0) {
+          parsedTasks.forEach((task: any) => {
+            this.tasksSubject.next([
+              ...this.tasksSubject.getValue(),
+              new Task(
+                task.title,
+                task.subtitle,
+                task.description,
+                task.priority,
+                task.attachment,
+                task.isCompleted,
+              ),
+            ]);
+          });
+        }
+      }
+    });
   }
 
   addTask(task: Task): void {
     const currentTasks = this.tasksSubject.getValue();
     this.tasksSubject.next([...currentTasks, task]);
+
+    localStorage.setItem(
+      this.tabService.getCurrentTab()!.id,
+      JSON.stringify(this.tasksSubject.getValue()),
+    );
   }
 
   updateTask(updatedTask: Task): void {
@@ -46,13 +71,5 @@ export class TaskService {
 
   setSelectedTask(task: Task | undefined): void {
     this.selectedTaskSubject.next(task);
-  }
-
-  /* MOCK DATA FUNCTIONS */
-  generateMockTasksOne() {
-    this.tasksSubject.next([...MockData.tasksOne]);
-  }
-  generateMockTasksTwo() {
-    this.tasksSubject.next([...MockData.tasksTwo]);
   }
 }

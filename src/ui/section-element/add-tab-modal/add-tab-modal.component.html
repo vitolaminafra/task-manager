@@ -65,6 +65,11 @@
           [buttonTypology]="ButtonTypologyEnum.TEXT_ONLY"
           [buttonColor]="ButtonColorEnum.BLUE"
           [text]="'Add tab'"
+          [disabled]="
+            tabNameInput.value == '' ||
+            tabNameInput.invalid ||
+            tabNameInput.pristine
+          "
           (onClick$)="addTab()"
         ></app-my-button>
       </div>

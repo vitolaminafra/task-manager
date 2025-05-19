@@ -17,7 +17,7 @@
     class="mt-1 text-xs font-medium uppercase text-gray-500 dark:text-neutral-500"
     [ngClass]="{ 'line-through': task!.isCompleted }"
   >
-    {{ task!.subtitle | truncate }}
+    {{ task!.subtitle ? (task!.subtitle | truncate) : "" }}
   </p>
   <p
     class="mt-2 text-gray-500 dark:text-neutral-400"
