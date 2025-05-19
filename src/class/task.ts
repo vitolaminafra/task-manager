@@ -7,7 +7,7 @@ export class Task {
   subtitle: string;
   description: string;
   priority: PriorityEnum;
-  hasAttachment: boolean;
+  attachment: string;
   isCompleted: boolean;
 
   constructor(
@@ -15,7 +15,7 @@ export class Task {
     subtitle: string,
     description: string,
     priority: PriorityEnum = PriorityEnum.LOW,
-    hasAttachment: boolean = false,
+    attachment: string,
     isCompleted: boolean = false,
   ) {
     this.id = Utilities.generateId();
@@ -23,7 +23,7 @@ export class Task {
     this.subtitle = subtitle;
     this.description = description;
     this.priority = priority;
-    this.hasAttachment = hasAttachment;
+    this.attachment = attachment;
     this.isCompleted = isCompleted;
   }
 }

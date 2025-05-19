@@ -18,7 +18,7 @@ export class MockData {
       'Design > UI/UX > Implementation',
       'Implement new design system across the platform',
       PriorityEnum.HIGH,
-      false,
+      '',
       true,
     ),
     new Task(
@@ -26,7 +26,7 @@ export class MockData {
       'Backend > Database',
       'Resolve intermittent connection issues in production',
       PriorityEnum.HIGH,
-      true,
+      '',
       false,
     ),
     new Task(
@@ -34,7 +34,7 @@ export class MockData {
       'Frontend > Performance',
       'Implement lazy loading for better performance',
       PriorityEnum.MEDIUM,
-      true,
+      '',
       true,
     ),
     new Task(
@@ -42,7 +42,7 @@ export class MockData {
       'Analytics > Implementation',
       'Integrate Google Analytics for user tracking',
       PriorityEnum.MEDIUM,
-      false,
+      '',
       true,
     ),
     new Task(
@@ -50,7 +50,7 @@ export class MockData {
       'Documentation > API',
       'Review and update API documentation',
       PriorityEnum.LOW,
-      false,
+      '',
       false,
     ),
     new Task(
@@ -58,7 +58,7 @@ export class MockData {
       'Security > Auth',
       'Perform security review of authentication system',
       PriorityEnum.HIGH,
-      true,
+      '',
       false,
     ),
     new Task(
@@ -66,7 +66,7 @@ export class MockData {
       'Maintenance > Bugs',
       'Address reported issues in the feedback module',
       PriorityEnum.LOW,
-      true,
+      '',
       false,
     ),
   ];
@@ -77,7 +77,7 @@ export class MockData {
       'Design > UI/UX > Implementation',
       'Implement new design system across the platform',
       PriorityEnum.HIGH,
-      false,
+      '',
       true,
     ),
     new Task(
@@ -85,7 +85,7 @@ export class MockData {
       'Backend > Database',
       'Resolve intermittent connection issues in production',
       PriorityEnum.HIGH,
-      true,
+      '',
       false,
     ),
   ];

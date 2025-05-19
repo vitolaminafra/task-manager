@@ -10,6 +10,7 @@ import { Tab } from '../../../class/tab';
 import { BadgePlus, LucideAngularModule } from 'lucide-angular';
 import { MyButtonComponent } from '../../base-element/my-button/my-button.component';
 import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
+import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.component';
 
 @Component({
   selector: 'app-container',
@@ -19,6 +20,7 @@ import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
     NgForOf,
     LucideAngularModule,
     MyButtonComponent,
+    AddTaskModalComponent,
   ],
   templateUrl: './container.component.html',
   styleUrl: './container.component.css',
@@ -38,11 +40,6 @@ export class ContainerComponent implements OnInit {
     this.tabService.currentTab$.subscribe((tab) => {
       this.selectedTab = tab;
       this.tasks = [];
-      if (tab != undefined) {
-        tab.isCompleted
-          ? this.taskService.generateMockTasksOne()
-          : this.taskService.generateMockTasksTwo();
-      }
     });
 
     this.taskService.tasks$.subscribe((tasks) => {
@@ -52,6 +49,10 @@ export class ContainerComponent implements OnInit {
 
   openTaskModal() {
     HSOverlay.open('#task-modal');
+  }
+
+  addTask() {
+    HSOverlay.open('#add-task-modal');
   }
 
   protected readonly ButtonTypologyEnum = ButtonTypologyEnum;

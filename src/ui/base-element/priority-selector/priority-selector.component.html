@@ -1,0 +1,25 @@
+<div
+  class="flex items-center justify-between py-2.5 sm:py-3 px-4 w-full border-gray-200 dark:border-neutral-700 border rounded-lg"
+>
+  <label class="text-sm dark:text-neutral-400">Select priority</label>
+  <div class="flex gap-x-2">
+    <app-priority-badge
+      [class]="'cursor-pointer'"
+      [priority]="PriorityEnum.LOW"
+      [isSelected]="selectedPriority == PriorityEnum.LOW"
+      (click)="selectedPriority = PriorityEnum.LOW"
+    />
+    <app-priority-badge
+      [class]="'cursor-pointer'"
+      [priority]="PriorityEnum.MEDIUM"
+      [isSelected]="selectedPriority == PriorityEnum.MEDIUM"
+      (click)="selectedPriority = PriorityEnum.MEDIUM"
+    />
+    <app-priority-badge
+      [class]="'cursor-pointer'"
+      [priority]="PriorityEnum.HIGH"
+      [isSelected]="selectedPriority == PriorityEnum.HIGH"
+      (click)="selectedPriority = PriorityEnum.HIGH"
+    />
+  </div>
+</div>

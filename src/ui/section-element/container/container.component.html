@@ -6,8 +6,9 @@
     <div class="flex gap-x-3">
       <app-my-button
         [buttonTypology]="ButtonTypologyEnum.ICON_AND_TEXT"
-        [text]="'Add new tab'"
+        [text]="'Add new task'"
         [icon]="AddTaskIcon"
+        (onClick$)="addTask()"
       />
     </div>
   </div>
@@ -33,3 +34,5 @@
 </div>
 
 <app-task-modal />
+
+<app-add-task-modal />
