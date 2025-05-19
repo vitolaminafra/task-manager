@@ -24,13 +24,13 @@ export class MyButtonComponent {
   @Input() buttonColor: ButtonColorEnum = ButtonColorEnum.BLUE;
   @Input() text: string = '';
 
-  @Output() onClick$ = new EventEmitter<void>();
+  @Output() onClick$ = new EventEmitter<MouseEvent>();
 
   protected readonly PlaceholderIcon = Smile;
   protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
 
   onClick($event: MouseEvent) {
-    this.onClick$.emit();
+    this.onClick$.emit($event);
   }
 
   protected readonly AddTaskIcon = BadgePlus;
