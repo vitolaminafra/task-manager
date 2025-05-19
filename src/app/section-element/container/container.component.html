@@ -1,7 +1,52 @@
 <div class="ml-[16rem] p-4 bg-white dark:bg-neutral-800 h-screen">
-  <h1 class="text-2xl font-bold text-gray-800 dark:text-white pb-2 mb-3">
-    {{ "Tasks - " + selectedTab!.title }}
-  </h1>
+  <div class="flex justify-between items-center mb-3">
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">
+      {{ selectedTab ? selectedTab!.title : "No tab selected" }}
+    </h1>
+    <div class="flex gap-x-3">
+      <button
+        type="button"
+        class="flex shrink-0 justify-center items-center gap-2 size-9.5 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+      >
+        <svg
+          class="shrink-0 size-3"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="flex shrink-0 justify-center items-center gap-2 size-9.5 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+      >
+        <svg
+          class="shrink-0 size-3"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+
   <div class="grid grid-cols-2 gap-4">
     <app-task-card
       *ngFor="let task of tasks"

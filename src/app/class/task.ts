@@ -1,7 +1,8 @@
 import { PriorityEnum } from '../model/priority.enum';
+import { Utilities } from '../../utility/utlities.js';
 
 export class Task {
-  id: number;
+  id: string;
   title: string;
   subtitle: string;
   description: string;
@@ -10,7 +11,6 @@ export class Task {
   isCompleted: boolean;
 
   constructor(
-    id: number,
     title: string,
     subtitle: string,
     description: string,
@@ -18,7 +18,7 @@ export class Task {
     hasAttachment: boolean = false,
     isCompleted: boolean = false,
   ) {
-    this.id = id;
+    this.id = Utilities.generateId();
     this.title = title;
     this.subtitle = subtitle;
     this.description = description;

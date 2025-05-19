@@ -1,16 +1,13 @@
+import { Utilities } from '../../utility/utlities.js';
+
 export class Tab {
-  id: number;
+  id: string;
   title: string;
   isCompleted: boolean = false;
   isActive: boolean = false;
 
-  constructor(
-    id: number,
-    title: string,
-    isCompleted: boolean,
-    isActive?: boolean,
-  ) {
-    this.id = id;
+  constructor(title: string, isCompleted: boolean, isActive?: boolean) {
+    this.id = Utilities.generateId();
     this.title = title;
     this.isCompleted = isCompleted;
     this.isActive = isActive ?? false;
@@ -22,9 +19,5 @@ export class Tab {
 
   deselect(): void {
     this.isActive = false;
-  }
-
-  toggle(): void {
-    this.isActive = !this.isActive;
   }
 }

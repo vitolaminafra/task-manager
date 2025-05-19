@@ -7,10 +7,16 @@ import { NgForOf } from '@angular/common';
 import { TabService } from '../../../service/tab.service';
 import { TaskService } from '../../../service/task.service';
 import { Tab } from '../../class/tab';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-container',
-  imports: [TaskCardComponent, TaskModalComponent, NgForOf],
+  imports: [
+    TaskCardComponent,
+    TaskModalComponent,
+    NgForOf,
+    LucideAngularModule,
+  ],
   templateUrl: './container.component.html',
   styleUrl: './container.component.css',
 })
@@ -24,16 +30,19 @@ export class ContainerComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.taskService.tasks$.subscribe((tasks) => {
-      this.tasks = tasks;
-    });
-
     this.tabService.currentTab$.subscribe((tab) => {
       this.selectedTab = tab;
+      console.log(tab);
       this.tasks = [];
-      tab!.id % 2 == 0
-        ? this.taskService.generateMockTasksOne()
-        : this.taskService.generateMockTasksTwo();
+      if (tab != undefined) {
+        tab.isCompleted
+          ? this.taskService.generateMockTasksOne()
+          : this.taskService.generateMockTasksTwo();
+      }
+    });
+
+    this.taskService.tasks$.subscribe((tasks) => {
+      this.tasks = tasks;
     });
   }
 

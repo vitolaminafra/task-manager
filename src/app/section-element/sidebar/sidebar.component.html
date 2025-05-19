@@ -67,7 +67,10 @@
     >
       <div class="pb-0 px-2 w-full flex flex-col flex-wrap">
         <ul class="space-y-1">
-          <li *ngFor="let tab of tabs; index as i">
+          <li
+            *ngFor="let tab of tabs; index as i"
+            class="hs-dropdown [--trigger:contextmenu]"
+          >
             <a
               class="flex cursor-pointer items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-800 rounded-lg hover:bg-gray-100 focus:outline-hidden dark:hover:bg-neutral-700 dark:focus:bg-neutral-700 dark:text-white"
               [ngClass]="{ 'bg-gray-100 dark:bg-neutral-700': tab.isActive }"
@@ -83,7 +86,24 @@
         </ul>
       </div>
     </nav>
-    <div class="flex p-4">
+    <div class="flex justify-between p-4">
+      <button
+        type="button"
+        class="flex shrink-0 justify-center items-center gap-2 size-9.5 text-sm font-medium rounded-lg border border-transparent bg-transparent text-black hover:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none"
+        (click)="addTab()"
+      >
+        <lucide-angular [img]="AddTabIcon" [size]="18"></lucide-angular>
+      </button>
+
+      <button
+        *ngIf="tabs.length > 0"
+        type="button"
+        class="flex shrink-0 justify-center items-center gap-2 size-9.5 text-sm font-medium rounded-lg border border-transparent bg-transparent text-black hover:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none"
+        (click)="deleteTab()"
+      >
+        <lucide-angular [img]="DeleteTabIcon" [size]="18"></lucide-angular>
+      </button>
+
       <button
         type="button"
         class="flex shrink-0 justify-center items-center gap-2 size-9.5 text-sm font-medium rounded-lg border border-transparent bg-transparent text-black hover:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none"
@@ -99,3 +119,5 @@
   </div>
 </div>
 <!-- End Sidebar -->
+
+<app-add-tab-modal />

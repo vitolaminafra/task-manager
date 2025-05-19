@@ -1,20 +1,19 @@
-import { Tab } from './class/tab';
-import { Task } from './class/task';
-import { PriorityEnum } from './model/priority.enum';
+import { Tab } from '../app/class/tab';
+import { Task } from '../app/class/task';
+import { PriorityEnum } from '../app/model/priority.enum';
 
 export class MockData {
   public static exampleTabs: Tab[] = [
-    new Tab(1, 'Wave 2.1.0', false, true),
-    new Tab(2, 'Wave 2.0.0', false, false),
-    new Tab(3, 'Wave 1.9.0', false, false),
-    new Tab(4, 'Wave 1.8.0', false, false),
-    new Tab(5, 'Wave 1.7.0', true, false),
-    new Tab(6, 'Wave 1.6.0', true, false),
+    new Tab('Wave 2.1.0', false, true),
+    new Tab('Wave 2.0.0', false, false),
+    new Tab('Wave 1.9.0', false, false),
+    new Tab('Wave 1.8.0', false, false),
+    new Tab('Wave 1.7.0', true, false),
+    new Tab('Wave 1.6.0', true, false),
   ];
 
   public static tasksOne: Task[] = [
     new Task(
-      1,
       'Update user interface',
       'Design > UI/UX > Implementation',
       'Implement new design system across the platform',
@@ -23,7 +22,6 @@ export class MockData {
       true,
     ),
     new Task(
-      2,
       'Fix database connection',
       'Backend > Database',
       'Resolve intermittent connection issues in production',
@@ -32,7 +30,6 @@ export class MockData {
       false,
     ),
     new Task(
-      3,
       'Optimize image loading',
       'Frontend > Performance',
       'Implement lazy loading for better performance',
@@ -41,7 +38,6 @@ export class MockData {
       true,
     ),
     new Task(
-      4,
       'Add user analytics',
       'Analytics > Implementation',
       'Integrate Google Analytics for user tracking',
@@ -50,7 +46,6 @@ export class MockData {
       true,
     ),
     new Task(
-      5,
       'Update documentation',
       'Documentation > API',
       'Review and update API documentation',
@@ -59,7 +54,6 @@ export class MockData {
       false,
     ),
     new Task(
-      6,
       'Security audit',
       'Security > Auth',
       'Perform security review of authentication system',
@@ -68,7 +62,6 @@ export class MockData {
       false,
     ),
     new Task(
-      7,
       'Bug fixes',
       'Maintenance > Bugs',
       'Address reported issues in the feedback module',
@@ -80,7 +73,6 @@ export class MockData {
 
   public static tasksTwo: Task[] = [
     new Task(
-      1,
       'Update user interface',
       'Design > UI/UX > Implementation',
       'Implement new design system across the platform',
@@ -89,7 +81,6 @@ export class MockData {
       true,
     ),
     new Task(
-      2,
       'Fix database connection',
       'Backend > Database',
       'Resolve intermittent connection issues in production',

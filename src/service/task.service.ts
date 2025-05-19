@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Task } from '../app/class/task';
-import { MockData } from '../app/mock-data';
+import { MockData } from '../utility/mock-data';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +38,7 @@ export class TaskService {
     this.tasksSubject.next(updatedTasks);
   }
 
-  deleteTask(taskId: number): void {
+  deleteTask(taskId: string): void {
     const currentTasks = this.tasksSubject.getValue();
     const filteredTasks = currentTasks.filter((task) => task.id !== taskId);
     this.tasksSubject.next(filteredTasks);

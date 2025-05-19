@@ -20,7 +20,6 @@ export class TaskModalComponent implements OnInit {
   ngOnInit() {
     this.taskService.selectedTask$.subscribe((task) => {
       this.selectedTask = task;
-      console.log(task);
     });
   }
 
