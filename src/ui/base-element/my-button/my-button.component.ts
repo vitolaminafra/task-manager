@@ -1,11 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
-import {
-  BadgePlus,
-  LucideAngularModule,
-  LucideIconData,
-  Smile,
-} from 'lucide-angular';
+import { LucideAngularModule, LucideIconData, Smile } from 'lucide-angular';
 import { NgClass, NgIf } from '@angular/common';
 import { ButtonColorEnum } from '../../../enum/button-color.enum';
 
@@ -26,12 +21,9 @@ export class MyButtonComponent {
 
   @Output() onClick$ = new EventEmitter<MouseEvent>();
 
-  protected readonly PlaceholderIcon = Smile;
   protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
 
   onClick($event: MouseEvent) {
     this.onClick$.emit($event);
   }
-
-  protected readonly AddTaskIcon = BadgePlus;
 }
