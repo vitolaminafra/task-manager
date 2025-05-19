@@ -7,7 +7,7 @@
       [ngClass]="{ 'line-through': task!.isCompleted }"
       (click)="openTaskModal()"
     >
-      {{ task!.title }}
+      {{ task!.title | truncate }}
     </h3>
     <app-priority-badge
       [priority]="task!.isCompleted ? PriorityEnum.DONE : task!.priority"
@@ -17,13 +17,13 @@
     class="mt-1 text-xs font-medium uppercase text-gray-500 dark:text-neutral-500"
     [ngClass]="{ 'line-through': task!.isCompleted }"
   >
-    {{ task!.subtitle }}
+    {{ task!.subtitle | truncate }}
   </p>
   <p
     class="mt-2 text-gray-500 dark:text-neutral-400"
     [ngClass]="{ 'line-through': task!.isCompleted }"
   >
-    {{ task!.description }}
+    {{ task!.description | truncate }}
   </p>
   <div class="flex justify-between items-end">
     <span

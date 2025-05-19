@@ -12,6 +12,7 @@ import { ButtonColorEnum } from '../../../enum/button-color.enum';
 })
 export class MyButtonComponent {
   @Input() buttonTypology: ButtonTypologyEnum = ButtonTypologyEnum.ICON_ONLY;
+  @Input() disabled: boolean = false;
 
   @Input() icon: LucideIconData = Smile;
   @Input() tooltip: string = '';

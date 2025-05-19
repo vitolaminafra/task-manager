@@ -1,0 +1,8 @@
+.illustration {
+  width: calc(100vw - 16rem);
+  height: calc(100vh - 16rem);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

@@ -8,18 +8,38 @@
         [buttonTypology]="ButtonTypologyEnum.ICON_AND_TEXT"
         [text]="'Add new task'"
         [icon]="AddTaskIcon"
+        [disabled]="!selectedTab"
         (onClick$)="addTask()"
       />
     </div>
   </div>
 
-  <div class="grid grid-cols-2 gap-4">
+  <div
+    *ngIf="tasks.length > 0; else noTasksTemplate"
+    class="grid grid-cols-2 gap-4"
+  >
     <app-task-card
       *ngFor="let task of tasks"
       [task]="task"
       (openTaskModalEmitter)="openTaskModal()"
     />
   </div>
+
+  <ng-template #noTasksTemplate>
+    <div class="illustration">
+      <img
+        [src]="
+          themeService.isDarkMode()
+            ? '/no-tasks-dark.svg'
+            : '/no-tasks-light.svg'
+        "
+        alt="no-tasks"
+        height="300"
+        width="300"
+      />
+      <h1 class="mt-6 text-2xl dark:text-white">No tasks!</h1>
+    </div>
+  </ng-template>
 
   <!--  <button
     type="button"

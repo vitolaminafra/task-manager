@@ -3,7 +3,7 @@ import { TaskCardComponent } from '../task-card/task-card.component';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
 import { Task } from '../../../class/task';
 import HSOverlay from '@preline/overlay';
-import { NgForOf } from '@angular/common';
+import { NgForOf, NgIf } from '@angular/common';
 import { TabService } from '../../../service/tab.service';
 import { TaskService } from '../../../service/task.service';
 import { Tab } from '../../../class/tab';
@@ -11,6 +11,7 @@ import { BadgePlus, LucideAngularModule } from 'lucide-angular';
 import { MyButtonComponent } from '../../base-element/my-button/my-button.component';
 import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
 import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.component';
+import { ThemeService } from '../../../service/theme.service';
 
 @Component({
   selector: 'app-container',
@@ -21,6 +22,7 @@ import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.componen
     LucideAngularModule,
     MyButtonComponent,
     AddTaskModalComponent,
+    NgIf,
   ],
   templateUrl: './container.component.html',
   styleUrl: './container.component.css',
@@ -34,6 +36,7 @@ export class ContainerComponent implements OnInit {
   constructor(
     private tabService: TabService,
     private taskService: TaskService,
+    protected themeService: ThemeService,
   ) {}
 
   ngOnInit() {

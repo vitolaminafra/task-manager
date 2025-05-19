@@ -7,10 +7,17 @@ import { TaskService } from '../../../service/task.service';
 import { MyButtonComponent } from '../../base-element/my-button/my-button.component';
 import { ButtonColorEnum } from '../../../enum/button-color.enum';
 import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
+import { TruncatePipe } from '../../../pipe/truncate.pipe';
 
 @Component({
   selector: 'app-task-card',
-  imports: [PriorityBadgeComponent, NgIf, NgClass, MyButtonComponent],
+  imports: [
+    PriorityBadgeComponent,
+    NgIf,
+    NgClass,
+    MyButtonComponent,
+    TruncatePipe,
+  ],
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.css',
 })
