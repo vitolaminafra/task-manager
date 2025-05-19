@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PriorityEnum } from '../../model/priority.enum';
+import { PriorityEnum } from '../../../enum/priority.enum';
 import {
   CircleCheckBig,
   LucideAngularModule,

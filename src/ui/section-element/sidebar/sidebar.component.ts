@@ -9,15 +9,24 @@ import {
   Trash2,
 } from 'lucide-angular';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { Tab } from '../../class/tab';
+import { Tab } from '../../../class/tab';
 import { TabService } from '../../../service/tab.service';
 import { ThemeService } from '../../../service/theme.service';
 import { AddTabModalComponent } from '../add-tab-modal/add-tab-modal.component';
 import HSOverlay from '@preline/overlay';
+import { MyButtonComponent } from '../../base-element/my-button/my-button.component';
+import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [LucideAngularModule, NgForOf, NgClass, AddTabModalComponent, NgIf],
+  imports: [
+    LucideAngularModule,
+    NgForOf,
+    NgClass,
+    AddTabModalComponent,
+    NgIf,
+    MyButtonComponent,
+  ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
 })
@@ -80,4 +89,6 @@ export class SidebarComponent implements OnInit {
     this.tabService.deleteTab(this.tabs[toDeletePosition]);
     this.initTabs();
   }
+
+  protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
 }

@@ -1,5 +1,5 @@
-import { PriorityEnum } from '../model/priority.enum';
-import { Utilities } from '../../utility/utlities.js';
+import { PriorityEnum } from '../enum/priority.enum';
+import { Utilities } from '../utility/utlities.js';
 
 export class Task {
   id: string;

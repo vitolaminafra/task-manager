@@ -1,0 +1,38 @@
+<div
+  *ngIf="buttonTypology == ButtonTypologyEnum.ICON_ONLY"
+  class="hs-tooltip inline-block"
+>
+  <button
+    type="button"
+    class="hs-tooltip-toggle flex shrink-0 justify-center items-center gap-2 size-9.5 text-sm font-medium rounded-lg border border-transparent bg-transparent text-black hover:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none"
+    (click)="onClick($event)"
+  >
+    <lucide-angular [img]="icon" [size]="18"></lucide-angular>
+  </button>
+
+  <span
+    class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-gray-900 text-xs font-medium text-white rounded-md shadow-2xs dark:bg-neutral-700"
+    role="tooltip"
+  >
+    {{ tooltip }}
+  </span>
+</div>
+
+<button
+  *ngIf="buttonTypology == ButtonTypologyEnum.TEXT_ONLY"
+  type="button"
+  class="py-1 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent"
+  [ngClass]="buttonColor"
+  (click)="onClick($event)"
+>
+  {{ text }}
+</button>
+
+<button
+  *ngIf="buttonTypology == ButtonTypologyEnum.ICON_AND_TEXT"
+  type="button"
+  class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+>
+  {{ text }}
+  <lucide-angular [img]="icon" [size]="18"></lucide-angular>
+</button>

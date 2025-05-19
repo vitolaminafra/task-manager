@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
-import { Task } from '../../class/task';
+import { Task } from '../../../class/task';
 import HSOverlay from '@preline/overlay';
 import { NgForOf } from '@angular/common';
 import { TabService } from '../../../service/tab.service';
 import { TaskService } from '../../../service/task.service';
-import { Tab } from '../../class/tab';
-import { LucideAngularModule } from 'lucide-angular';
+import { Tab } from '../../../class/tab';
+import { BadgePlus, LucideAngularModule } from 'lucide-angular';
+import { MyButtonComponent } from '../../base-element/my-button/my-button.component';
+import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
 
 @Component({
   selector: 'app-container',
@@ -16,6 +18,7 @@ import { LucideAngularModule } from 'lucide-angular';
     TaskModalComponent,
     NgForOf,
     LucideAngularModule,
+    MyButtonComponent,
   ],
   templateUrl: './container.component.html',
   styleUrl: './container.component.css',
@@ -23,6 +26,8 @@ import { LucideAngularModule } from 'lucide-angular';
 export class ContainerComponent implements OnInit {
   tasks: Task[] = [];
   selectedTab: Tab | undefined = undefined;
+
+  protected readonly AddTaskIcon = BadgePlus;
 
   constructor(
     private tabService: TabService,
@@ -32,7 +37,6 @@ export class ContainerComponent implements OnInit {
   ngOnInit() {
     this.tabService.currentTab$.subscribe((tab) => {
       this.selectedTab = tab;
-      console.log(tab);
       this.tasks = [];
       if (tab != undefined) {
         tab.isCompleted
@@ -49,4 +53,6 @@ export class ContainerComponent implements OnInit {
   openTaskModal() {
     HSOverlay.open('#task-modal');
   }
+
+  protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
 }

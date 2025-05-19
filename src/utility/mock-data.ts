@@ -1,6 +1,6 @@
-import { Tab } from '../app/class/tab';
-import { Task } from '../app/class/task';
-import { PriorityEnum } from '../app/model/priority.enum';
+import { Tab } from '../class/tab';
+import { Task } from '../class/task';
+import { PriorityEnum } from '../enum/priority.enum';
 
 export class MockData {
   public static exampleTabs: Tab[] = [

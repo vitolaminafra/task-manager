@@ -1,4 +1,4 @@
-import { Utilities } from '../../utility/utlities.js';
+import { Utilities } from '../utility/utlities.js';
 
 export class Tab {
   id: string;

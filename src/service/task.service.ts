@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Task } from '../app/class/task';
+import { Task } from '../class/task';
 import { MockData } from '../utility/mock-data';
 
 @Injectable({

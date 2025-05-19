@@ -17,6 +17,7 @@
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
+    "@floating-ui/dom": "^1.7.0",
     "@preline/overlay": "^3.0.0",
     "@tailwindcss/postcss": "^4.1.7",
     "lucide-angular": "^0.511.0",

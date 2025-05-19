@@ -87,33 +87,27 @@
       </div>
     </nav>
     <div class="flex justify-between p-4">
-      <button
-        type="button"
-        class="flex shrink-0 justify-center items-center gap-2 size-9.5 text-sm font-medium rounded-lg border border-transparent bg-transparent text-black hover:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none"
-        (click)="addTab()"
-      >
-        <lucide-angular [img]="AddTabIcon" [size]="18"></lucide-angular>
-      </button>
+      <app-my-button
+        [buttonTypology]="ButtonTypologyEnum.ICON_ONLY"
+        [icon]="AddTabIcon"
+        [tooltip]="'Add new tab'"
+        (onClick$)="addTab()"
+      />
 
-      <button
+      <app-my-button
         *ngIf="tabs.length > 0"
-        type="button"
-        class="flex shrink-0 justify-center items-center gap-2 size-9.5 text-sm font-medium rounded-lg border border-transparent bg-transparent text-black hover:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none"
-        (click)="deleteTab()"
-      >
-        <lucide-angular [img]="DeleteTabIcon" [size]="18"></lucide-angular>
-      </button>
+        [buttonTypology]="ButtonTypologyEnum.ICON_ONLY"
+        [icon]="DeleteTabIcon"
+        [tooltip]="'Delete this tab'"
+        (onClick$)="deleteTab()"
+      />
 
-      <button
-        type="button"
-        class="flex shrink-0 justify-center items-center gap-2 size-9.5 text-sm font-medium rounded-lg border border-transparent bg-transparent text-black hover:bg-gray-100 focus:outline-hidden dark:text-white dark:hover:bg-neutral-700 disabled:opacity-50 disabled:pointer-events-none"
-        (click)="toggleDarkMode()"
-      >
-        <lucide-angular
-          [img]="themeService.isDarkMode() ? SunIcon : MoonIcon"
-          [size]="18"
-        ></lucide-angular>
-      </button>
+      <app-my-button
+        [buttonTypology]="ButtonTypologyEnum.ICON_ONLY"
+        [icon]="themeService.isDarkMode() ? SunIcon : MoonIcon"
+        [tooltip]="themeService.isDarkMode() ? 'Light mode' : 'Dark mode'"
+        (onClick$)="toggleDarkMode()"
+      />
     </div>
     <!-- End Body -->
   </div>

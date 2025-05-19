@@ -49,6 +49,7 @@
         <div class="space-y-3">
           <input
             autofocus
+            name="tabNameInput"
             type="text"
             aria-describedby="tabNameInput"
             [formControl]="tabNameInput"
@@ -60,13 +61,12 @@
       <div
         class="flex justify-end items-center gap-x-2 py-3 px-4 border-t border-gray-200 dark:border-neutral-700"
       >
-        <button
-          type="button"
-          class="py-1 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-blue-500 focus:outline-hidden hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-blue-800/30 dark:hover:text-blue-400 dark:focus:text-blue-400"
-          (click)="addTab()"
-        >
-          Add tab
-        </button>
+        <app-my-button
+          [buttonTypology]="ButtonTypologyEnum.TEXT_ONLY"
+          [buttonColor]="ButtonColorEnum.BLUE"
+          [text]="'Add tab'"
+          (onClick$)="addTab()"
+        ></app-my-button>
       </div>
     </div>
   </div>

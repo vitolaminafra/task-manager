@@ -1,13 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PriorityBadgeComponent } from '../../base-element/priority-badge/priority-badge.component';
-import { PriorityEnum } from '../../model/priority.enum';
-import { Task } from '../../class/task';
+import { PriorityEnum } from '../../../enum/priority.enum';
+import { Task } from '../../../class/task';
 import { NgClass, NgIf } from '@angular/common';
 import { TaskService } from '../../../service/task.service';
+import { MyButtonComponent } from '../../base-element/my-button/my-button.component';
+import { ButtonColorEnum } from '../../../enum/button-color.enum';
+import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
 
 @Component({
   selector: 'app-task-card',
-  imports: [PriorityBadgeComponent, NgIf, NgClass],
+  imports: [PriorityBadgeComponent, NgIf, NgClass, MyButtonComponent],
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.css',
 })
@@ -27,4 +30,7 @@ export class TaskCardComponent {
   markAsCompleted() {
     this.task!.isCompleted = true;
   }
+
+  protected readonly ButtonColorEnum = ButtonColorEnum;
+  protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
 }

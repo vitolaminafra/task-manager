@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Tab } from '../app/class/tab';
+import { Tab } from '../class/tab';
 import { MockData } from '../utility/mock-data';
 
 @Injectable({
