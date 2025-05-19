@@ -29,14 +29,26 @@
 
   <ng-template #noTasksTemplate>
     <div class="illustration">
-      <img
-        [src]="
-          themeService.isDarkMode() ? 'no-tasks-dark.svg' : 'no-tasks-light.svg'
-        "
-        alt="no-tasks"
-        height="400"
-        width="400"
-      />
+      <div class="flex">
+        <img
+          [src]="
+            themeService.isDarkMode()
+              ? 'no-tasks-dark.svg'
+              : 'no-tasks-light.svg'
+          "
+          alt="no-tasks"
+          height="400"
+          width="400"
+        />
+        <img
+          class="absolute top-16 right-16"
+          src="/arrow-top-right.svg"
+          alt="arrow-top-right"
+          height="180"
+          width="180"
+        />
+      </div>
+
       <h1 class="mt-6 text-2xl dark:text-white">No tasks!</h1>
     </div>
   </ng-template>
