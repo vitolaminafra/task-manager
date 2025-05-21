@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../ui/section-element/sidebar/sidebar.component';
 import { ContainerComponent } from '../ui/section-element/container/container.component';
+import { ToastNotificationComponent } from '../ui/section-element/toast-notification/toast-notification.component';
 
 @Component({
   selector: 'app-root',
-  imports: [SidebarComponent, ContainerComponent],
+  imports: [SidebarComponent, ContainerComponent, ToastNotificationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

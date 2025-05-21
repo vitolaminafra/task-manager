@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Task } from '../class/task';
 import { TabService } from './tab.service';
+import { ToastNotificationService } from './toast-notification.service';
+import { ToastNotificationEnum } from '../enum/toast-notification.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +17,10 @@ export class TaskService {
   );
   selectedTask$ = this.selectedTaskSubject.asObservable();
 
-  constructor(private tabService: TabService) {
+  constructor(
+    private tabService: TabService,
+    private toastNotificationService: ToastNotificationService,
+  ) {
     this.initializeTasks();
   }
 
@@ -52,6 +57,11 @@ export class TaskService {
     localStorage.setItem(
       this.tabService.getCurrentTab()!.id,
       JSON.stringify(this.tasksSubject.getValue()),
+    );
+
+    this.toastNotificationService.showNotification(
+      ToastNotificationEnum.SUCCESS,
+      'Task added successfully',
     );
   }
 

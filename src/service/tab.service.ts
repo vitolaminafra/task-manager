@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Tab } from '../class/tab';
+import { ToastNotificationService } from './toast-notification.service';
+import { ToastNotificationEnum } from '../enum/toast-notification.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +14,7 @@ export class TabService {
   private tabsSubject = new BehaviorSubject<Tab[]>([]);
   tabs$ = this.tabsSubject.asObservable();
 
-  constructor() {
+  constructor(private toastNotificationService: ToastNotificationService) {
     this.initializeTabs();
   }
 
@@ -44,6 +46,11 @@ export class TabService {
     this.tabsSubject.next([...existingTabs, tab]);
 
     localStorage.setItem('tabs', JSON.stringify(this.tabsSubject.getValue()));
+
+    this.toastNotificationService.showNotification(
+      ToastNotificationEnum.SUCCESS,
+      'Tab added successfully',
+    );
   }
 
   deleteTab(tab: Tab): void {
@@ -54,6 +61,11 @@ export class TabService {
     this.changeSelectedTab(undefined);
 
     localStorage.setItem('tabs', JSON.stringify(this.tabsSubject.getValue()));
+
+    this.toastNotificationService.showNotification(
+      ToastNotificationEnum.SUCCESS,
+      'Tab deleted successfully',
+    );
   }
 
   getCurrentTab(): Tab | undefined {
