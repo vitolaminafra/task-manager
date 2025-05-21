@@ -54,15 +54,20 @@ export class AddTaskModalComponent {
       const reader = new FileReader();
       reader.readAsDataURL(this.selectedAttachment!);
       reader.onload = (result) => {
-        this.generateTaskObject(newTask, result.target?.result as string);
+        this.taskService.addTask(
+          this.generateTaskObject(newTask, result.target?.result as string),
+        );
       };
     } else {
-      this.generateTaskObject(newTask, '');
+      this.taskService.addTask(this.generateTaskObject(newTask, ''));
     }
+
+    this.resetForm();
+    HSOverlay.close('#add-task-modal');
   }
 
   private generateTaskObject(newTask: any, image: string) {
-    const taskToAdd = new Task(
+    return new Task(
       newTask.title,
       newTask.subtitle,
       newTask.description,
@@ -70,14 +75,9 @@ export class AddTaskModalComponent {
       image,
       false,
     );
-
-    this.taskService.addTask(taskToAdd);
-
-    this.resetForm();
-    HSOverlay.close('#add-task-modal');
   }
 
-  private resetForm() {
+  public resetForm() {
     this.addTaskFormGroup.reset();
     this.prioritySelector!.selectedPriority = undefined;
     this.selectedAttachment = undefined;

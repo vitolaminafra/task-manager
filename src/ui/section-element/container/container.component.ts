@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TaskCardComponent } from '../task-card/task-card.component';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
 import { Task } from '../../../class/task';
@@ -28,8 +28,13 @@ import { ThemeService } from '../../../service/theme.service';
   styleUrl: './container.component.css',
 })
 export class ContainerComponent implements OnInit {
+  @ViewChild('addTaskModal') addTaskModal: AddTaskModalComponent | undefined =
+    undefined;
+
   tasks: Task[] = [];
   selectedTab: Tab | undefined = undefined;
+
+  protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
 
   protected readonly AddTaskIcon = BadgePlus;
 
@@ -53,9 +58,12 @@ export class ContainerComponent implements OnInit {
     HSOverlay.open('#task-modal');
   }
 
-  addTask() {
+  openAddTaskModal() {
     HSOverlay.open('#add-task-modal');
+    HSOverlay.on('close', '#add-task-modal', () => {
+      if (this.addTaskModal) {
+        this.addTaskModal.resetForm();
+      }
+    });
   }
-
-  protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
 }

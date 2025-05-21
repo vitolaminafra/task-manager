@@ -11,7 +11,7 @@
         [text]="'Add new task'"
         [icon]="AddTaskIcon"
         [disabled]="!selectedTab"
-        (onClick$)="addTask()"
+        (onClick$)="openAddTaskModal()"
       />
     </div>
   </div>
@@ -55,4 +55,4 @@
 
 <app-task-modal />
 
-<app-add-task-modal />
+<app-add-task-modal #addTaskModal />

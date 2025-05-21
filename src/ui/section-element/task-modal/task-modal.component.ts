@@ -18,6 +18,9 @@ export class TaskModalComponent implements OnInit {
   protected readonly PriorityEnum = PriorityEnum;
   protected selectedTask: Task | undefined = undefined;
 
+  protected readonly ButtonColorEnum = ButtonColorEnum;
+  protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
+
   constructor(private taskService: TaskService) {}
 
   ngOnInit() {
@@ -31,7 +34,4 @@ export class TaskModalComponent implements OnInit {
       task!.isCompleted = true;
     });
   }
-
-  protected readonly ButtonColorEnum = ButtonColorEnum;
-  protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
 }
