@@ -7,6 +7,7 @@ import { TaskService } from '../../../service/task.service';
 import { MyButtonComponent } from '../../base-element/my-button/my-button.component';
 import { ButtonColorEnum } from '../../../enum/button-color.enum';
 import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
+import { Pencil } from 'lucide-angular';
 
 @Component({
   selector: 'app-task-modal',
@@ -21,6 +22,8 @@ export class TaskModalComponent implements OnInit {
   protected readonly ButtonColorEnum = ButtonColorEnum;
   protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
 
+  protected readonly EditIcon = Pencil;
+
   constructor(private taskService: TaskService) {}
 
   ngOnInit() {
@@ -34,4 +37,6 @@ export class TaskModalComponent implements OnInit {
       task!.isCompleted = true;
     });
   }
+
+  protected readonly Pencil = Pencil;
 }
