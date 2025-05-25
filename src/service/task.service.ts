@@ -4,6 +4,7 @@ import { Task } from '../class/task';
 import { TabService } from './tab.service';
 import { ToastNotificationService } from './toast-notification.service';
 import { ToastNotificationEnum } from '../enum/toast-notification.enum';
+import { db } from '../db/db';
 
 @Injectable({
   providedIn: 'root',
@@ -27,42 +28,35 @@ export class TaskService {
   public initializeTasks(): void {
     this.tabService.currentTab$.subscribe((tab) => {
       this.tasksSubject.next([]);
-      if (tab != undefined) {
-        const savedTasksByTab = localStorage.getItem('1');
 
-        const parsedTasks = savedTasksByTab ? JSON.parse(savedTasksByTab) : [];
-        if (parsedTasks.length > 0) {
-          parsedTasks.forEach((task: any) => {
-            this.tasksSubject.next([
-              ...this.tasksSubject.getValue(),
-              new Task(
-                task.title,
-                task.subtitle,
-                task.description,
-                task.priority,
-                task.attachment,
-                task.isCompleted,
-              ),
-            ]);
+      if (tab !== undefined) {
+        db.tasks
+          .filter((filteredTask) => filteredTask.tabId == tab.id)
+          .toArray()
+          .then((tasks) => {
+            this.tasksSubject.next(tasks);
           });
-        }
       }
     });
   }
 
   addTask(task: Task): void {
-    const currentTasks = this.tasksSubject.getValue();
-    this.tasksSubject.next([...currentTasks, task]);
+    task.tabId = this.tabService.getCurrentTab()!.id;
+    db.tasks.add(task).then(() => {
+      const currentTasks = this.tasksSubject.getValue();
+      this.tasksSubject.next([...currentTasks, task]);
 
-    localStorage.setItem(
-      this.tabService.getCurrentTab()!.title,
-      JSON.stringify(this.tasksSubject.getValue()),
-    );
+      this.toastNotificationService.showNotification(
+        ToastNotificationEnum.SUCCESS,
+        'Task added successfully',
+      );
+    });
+  }
 
-    this.toastNotificationService.showNotification(
-      ToastNotificationEnum.SUCCESS,
-      'Task added successfully',
-    );
+  markAsDone(task: Task) {
+    db.tasks.update(task.id, { isCompleted: true }).then(() => {
+      task.isCompleted = true;
+    });
   }
 
   updateTask(updatedTask: Task): void {

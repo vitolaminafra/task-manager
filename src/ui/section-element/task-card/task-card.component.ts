@@ -35,7 +35,9 @@ export class TaskCardComponent {
   }
 
   markAsCompleted() {
-    this.task!.isCompleted = true;
+    if (this.task !== undefined) {
+      this.taskService.markAsDone(this.task);
+    }
   }
 
   protected readonly ButtonColorEnum = ButtonColorEnum;

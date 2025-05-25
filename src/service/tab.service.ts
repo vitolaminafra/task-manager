@@ -52,7 +52,8 @@ export class TabService {
     db.tabs
       .add(tab)
       .then(async () => {
-        this.initializeTabs();
+        const currentTabs = this.tabsSubject.getValue();
+        this.tabsSubject.next([...currentTabs, tab]);
 
         this.toastNotificationService.showNotification(
           ToastNotificationEnum.SUCCESS,

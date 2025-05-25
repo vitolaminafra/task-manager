@@ -70,7 +70,7 @@ export class SidebarComponent implements OnInit {
   onTabClick(event: number) {
     this.selectedTabPosition = event;
     this.tabs.forEach((tab) => {
-      tab.isActive = tab.id == this.tabs[event].id;
+      tab.isActive = tab.id === this.tabs[event].id;
     });
     this.tabService.changeSelectedTab(this.tabs[event]);
   }

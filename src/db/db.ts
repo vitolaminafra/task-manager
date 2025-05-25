@@ -10,7 +10,7 @@ export class AppDB extends Dexie {
     super('taskManagerDB');
     this.version(3).stores({
       tabs: '++id',
-      tasks: '++id',
+      tasks: '++id, tabId',
     });
   }
 }

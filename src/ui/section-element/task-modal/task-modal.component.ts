@@ -22,7 +22,7 @@ export class TaskModalComponent implements OnInit {
   protected readonly ButtonColorEnum = ButtonColorEnum;
   protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
 
-  protected readonly EditIcon = Pencil;
+  protected readonly Pencil = Pencil;
 
   constructor(private taskService: TaskService) {}
 
@@ -33,10 +33,8 @@ export class TaskModalComponent implements OnInit {
   }
 
   markAsCompleted() {
-    this.taskService.selectedTask$.subscribe((task) => {
-      task!.isCompleted = true;
-    });
+    if (this.selectedTask !== undefined) {
+      this.taskService.markAsDone(this.selectedTask);
+    }
   }
-
-  protected readonly Pencil = Pencil;
 }
