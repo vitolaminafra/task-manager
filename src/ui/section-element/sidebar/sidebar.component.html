@@ -77,15 +77,14 @@
               (click)="onTabClick(i)"
             >
               <lucide-angular
-                [img]="tab.isCompleted ? CompletedIcon : GridIcon"
+                [img]="tabCounter.get(tab) == 0 ? CompletedIcon : GridIcon"
                 [size]="16"
               ></lucide-angular>
-              {{ tab.title }}
-              <!-- TODO add task counter (need DB) -->
+              {{ tab.title | truncate: 15 }}
               <span
-                *ngIf="false"
+                *ngIf="tabCounter.get(tab)! > 0"
                 class="ms-auto py-0.5 px-1.5 inline-flex items-center gap-x-1.5 text-xs bg-gray-200 text-gray-800 rounded-full dark:bg-neutral-600 dark:text-neutral-200"
-                >New</span
+                >{{ tabCounter.get(tab) }}</span
               >
             </a>
           </li>

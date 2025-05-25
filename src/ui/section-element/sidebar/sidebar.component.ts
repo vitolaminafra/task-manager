@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   Circle,
+  CircleCheck,
   CirclePlus,
   LucideAngularModule,
   Moon,
@@ -16,6 +17,8 @@ import { AddTabModalComponent } from '../add-tab-modal/add-tab-modal.component';
 import HSOverlay from '@preline/overlay';
 import { MyButtonComponent } from '../../base-element/my-button/my-button.component';
 import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
+import { TruncatePipe } from '../../../pipe/truncate.pipe';
+import { TaskService } from '../../../service/task.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -26,6 +29,7 @@ import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
     AddTabModalComponent,
     NgIf,
     MyButtonComponent,
+    TruncatePipe,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css',
@@ -42,10 +46,15 @@ export class SidebarComponent implements OnInit {
   protected readonly MoonIcon = Moon;
   protected readonly SunIcon = Sun;
 
+  protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
+
   protected tabs: Tab[] = [];
+
+  protected tabCounter = new Map<Tab, number>();
 
   constructor(
     private tabService: TabService,
+    protected taskService: TaskService,
     protected themeService: ThemeService,
   ) {}
 
@@ -54,7 +63,6 @@ export class SidebarComponent implements OnInit {
   }
 
   private initTabs() {
-    console.log('here');
     this.tabs = [];
     this.tabService.tabs$.subscribe((tabs) => {
       this.tabs = tabs;
@@ -64,6 +72,10 @@ export class SidebarComponent implements OnInit {
           this.selectedTabPosition = index;
         }
       });
+    });
+
+    this.tabService.tabCounter$.subscribe((tabCount) => {
+      this.tabCounter = tabCount;
     });
   }
 
@@ -94,5 +106,5 @@ export class SidebarComponent implements OnInit {
     this.initTabs();
   }
 
-  protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
+  protected readonly noTaskIcon = CircleCheck;
 }

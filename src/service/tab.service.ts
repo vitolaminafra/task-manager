@@ -15,6 +15,11 @@ export class TabService {
   private tabsSubject = new BehaviorSubject<Tab[]>([]);
   tabs$ = this.tabsSubject.asObservable();
 
+  private tabCounterSubject = new BehaviorSubject<Map<Tab, number>>(
+    new Map<Tab, number>(),
+  );
+  tabCounter$ = this.tabCounterSubject.asObservable();
+
   constructor(private toastNotificationService: ToastNotificationService) {
     this.initializeTabs();
   }
@@ -26,6 +31,17 @@ export class TabService {
       this.tabsSubject.next(tabs);
       tabs.forEach((tab) => {
         if (tab.isActive) this.changeSelectedTab(tab);
+
+        tabs.forEach((tab) => {
+          db.tasks
+            .filter((task) => task.tabId === tab.id && !task.isCompleted)
+            .count()
+            .then((count) => {
+              this.tabCounterSubject.next(
+                this.tabCounterSubject.value.set(tab, count),
+              );
+            });
+        });
       });
     });
   }
@@ -55,6 +71,8 @@ export class TabService {
         const currentTabs = this.tabsSubject.getValue();
         this.tabsSubject.next([...currentTabs, tab]);
 
+        this.updateCountersMap(tab);
+
         this.toastNotificationService.showNotification(
           ToastNotificationEnum.SUCCESS,
           'Tab added successfully',
@@ -81,5 +99,16 @@ export class TabService {
 
   getCurrentTab(): Tab | undefined {
     return this.currentTabSubject.getValue();
+  }
+
+  updateCountersMap(tab: Tab) {
+    db.tasks
+      .filter((task) => task.tabId === tab.id && !task.isCompleted)
+      .count()
+      .then((count) => {
+        this.tabCounterSubject.next(
+          this.tabCounterSubject.value.set(tab, count),
+        );
+      });
   }
 }

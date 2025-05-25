@@ -38,6 +38,8 @@ export class ContainerComponent implements OnInit {
 
   protected readonly AddTaskIcon = BadgePlus;
 
+  protected showPlaceholderImage: boolean = false;
+
   constructor(
     private tabService: TabService,
     private taskService: TaskService,
@@ -51,6 +53,7 @@ export class ContainerComponent implements OnInit {
 
     this.taskService.tasks$.subscribe((tasks) => {
       this.tasks = tasks;
+      this.showPlaceholderImage = true;
     });
   }
 

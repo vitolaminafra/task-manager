@@ -46,6 +46,8 @@ export class TaskService {
       const currentTasks = this.tasksSubject.getValue();
       this.tasksSubject.next([...currentTasks, task]);
 
+      this.tabService.updateCountersMap(this.tabService.getCurrentTab()!);
+
       this.toastNotificationService.showNotification(
         ToastNotificationEnum.SUCCESS,
         'Task added successfully',
@@ -56,6 +58,8 @@ export class TaskService {
   markAsDone(task: Task) {
     db.tasks.update(task.id, { isCompleted: true }).then(() => {
       task.isCompleted = true;
+
+      this.tabService.updateCountersMap(this.tabService.getCurrentTab()!);
     });
   }
 

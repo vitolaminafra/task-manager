@@ -18,9 +18,7 @@ export class AddTabModalComponent {
 
   constructor(private tabService: TabService) {}
   addTab() {
-    this.tabService.addTab(
-      new Tab(this.tabNameInput.value ?? '', false, false),
-    );
+    this.tabService.addTab(new Tab(this.tabNameInput.value ?? '', false));
     this.tabNameInput.reset();
     HSOverlay.close('#add-tab-modal');
   }
