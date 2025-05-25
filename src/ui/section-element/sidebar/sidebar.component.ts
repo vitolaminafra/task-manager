@@ -67,6 +67,8 @@ export class SidebarComponent implements OnInit {
     this.tabService.tabs$.subscribe((tabs) => {
       this.tabs = tabs;
 
+      this.selectedTabPosition = -1;
+
       tabs.forEach((tab, index) => {
         if (tab.isActive) {
           this.selectedTabPosition = index;
@@ -103,6 +105,7 @@ export class SidebarComponent implements OnInit {
     this.tabService.changeSelectedTab(undefined);
 
     this.tabService.deleteTab(this.tabs[toDeletePosition]);
+
     this.initTabs();
   }
 

@@ -100,7 +100,7 @@
       />
 
       <app-my-button
-        *ngIf="tabs.length > 0"
+        *ngIf="tabs.length > 0 && selectedTabPosition !== -1"
         [buttonTypology]="ButtonTypologyEnum.ICON_ONLY"
         [icon]="DeleteTabIcon"
         [tooltip]="'Delete this tab'"
