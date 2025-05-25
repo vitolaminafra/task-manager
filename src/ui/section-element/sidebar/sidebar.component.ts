@@ -54,22 +54,24 @@ export class SidebarComponent implements OnInit {
   }
 
   private initTabs() {
+    console.log('here');
+    this.tabs = [];
     this.tabService.tabs$.subscribe((tabs) => {
-      this.tabs = [];
       this.tabs = tabs;
 
-      if (tabs.length > 0) {
-        this.onTabClick(0);
-      }
+      tabs.forEach((tab, index) => {
+        if (tab.isActive) {
+          this.selectedTabPosition = index;
+        }
+      });
     });
   }
 
   onTabClick(event: number) {
-    if (this.selectedTabPosition != -1) {
-      this.tabs[this.selectedTabPosition].deselect();
-    }
-    this.tabs[event].select();
     this.selectedTabPosition = event;
+    this.tabs.forEach((tab) => {
+      tab.isActive = tab.id == this.tabs[event].id;
+    });
     this.tabService.changeSelectedTab(this.tabs[event]);
   }
 
@@ -85,6 +87,8 @@ export class SidebarComponent implements OnInit {
     const toDeletePosition = this.selectedTabPosition;
 
     this.selectedTabPosition = -1;
+
+    this.tabService.changeSelectedTab(undefined);
 
     this.tabService.deleteTab(this.tabs[toDeletePosition]);
     this.initTabs();

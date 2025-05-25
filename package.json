@@ -21,6 +21,7 @@
     "@floating-ui/dom": "^1.7.0",
     "@preline/overlay": "^3.0.0",
     "@tailwindcss/postcss": "^4.1.7",
+    "dexie": "^4.0.11",
     "lucide-angular": "^0.511.0",
     "postcss": "^8.5.3",
     "preline": "^3.0.1",

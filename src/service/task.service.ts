@@ -28,7 +28,7 @@ export class TaskService {
     this.tabService.currentTab$.subscribe((tab) => {
       this.tasksSubject.next([]);
       if (tab != undefined) {
-        const savedTasksByTab = localStorage.getItem(tab!.id);
+        const savedTasksByTab = localStorage.getItem('1');
 
         const parsedTasks = savedTasksByTab ? JSON.parse(savedTasksByTab) : [];
         if (parsedTasks.length > 0) {
@@ -55,7 +55,7 @@ export class TaskService {
     this.tasksSubject.next([...currentTasks, task]);
 
     localStorage.setItem(
-      this.tabService.getCurrentTab()!.id,
+      this.tabService.getCurrentTab()!.title,
       JSON.stringify(this.tasksSubject.getValue()),
     );
 

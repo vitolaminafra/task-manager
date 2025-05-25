@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Tab } from '../class/tab';
 import { ToastNotificationService } from './toast-notification.service';
 import { ToastNotificationEnum } from '../enum/toast-notification.enum';
+import { db } from '../db/db';
 
 @Injectable({
   providedIn: 'root',
@@ -18,54 +19,63 @@ export class TabService {
     this.initializeTabs();
   }
 
-  private initializeTabs(): void {
-    this.changeSelectedTab(undefined);
+  private initializeTabs() {
     this.tabsSubject.next([]);
 
-    const savedTabs = localStorage.getItem('tabs');
-
-    const parsedTabs = savedTabs ? JSON.parse(savedTabs) : [];
-
-    if (parsedTabs.length > 0) {
-      parsedTabs.forEach((tab: any) => {
-        this.tabsSubject.next([
-          ...this.tabsSubject.getValue(),
-          new Tab(tab.title, tab.isCompleted, false, tab.id),
-        ]);
+    db.tabs.toArray().then((tabs) => {
+      this.tabsSubject.next(tabs);
+      tabs.forEach((tab) => {
+        if (tab.isActive) this.changeSelectedTab(tab);
       });
-      this.changeSelectedTab(parsedTabs[0]);
-    }
+    });
   }
 
-  changeSelectedTab(tab: Tab | undefined): void {
+  changeSelectedTab(tab: Tab | undefined) {
+    if (tab != undefined) {
+      db.tabs
+        .filter((filteredTab) => filteredTab.id != tab!.id)
+        .modify({ isActive: false })
+        .then(() => {
+          db.tabs.update(tab!.id, { isActive: true }).then(() => {});
+        });
+    } else {
+      db.tabs
+        .toCollection()
+        .modify({ isActive: false })
+        .then(() => {});
+    }
+
     this.currentTabSubject.next(tab);
   }
 
-  addTab(tab: Tab): void {
-    const existingTabs = this.tabsSubject.getValue();
-    this.tabsSubject.next([...existingTabs, tab]);
+  addTab(tab: Tab) {
+    db.tabs
+      .add(tab)
+      .then(async () => {
+        this.initializeTabs();
 
-    localStorage.setItem('tabs', JSON.stringify(this.tabsSubject.getValue()));
-
-    this.toastNotificationService.showNotification(
-      ToastNotificationEnum.SUCCESS,
-      'Tab added successfully',
-    );
+        this.toastNotificationService.showNotification(
+          ToastNotificationEnum.SUCCESS,
+          'Tab added successfully',
+        );
+      })
+      .catch((error) => {
+        this.toastNotificationService.showNotification(
+          ToastNotificationEnum.ERROR,
+          'Error adding tab: ' + error + '',
+        );
+      });
   }
 
   deleteTab(tab: Tab): void {
-    const existingTabs = this.tabsSubject.getValue();
-    const filteredTabs = existingTabs.filter((t) => t.id !== tab.id);
-    this.tabsSubject.next(filteredTabs);
-
-    this.changeSelectedTab(undefined);
-
-    localStorage.setItem('tabs', JSON.stringify(this.tabsSubject.getValue()));
-
-    this.toastNotificationService.showNotification(
-      ToastNotificationEnum.SUCCESS,
-      'Tab deleted successfully',
-    );
+    db.tabs.delete(tab.id).then(() => {
+      this.initializeTabs();
+      this.changeSelectedTab(undefined);
+      this.toastNotificationService.showNotification(
+        ToastNotificationEnum.SUCCESS,
+        'Tab deleted successfully',
+      );
+    });
   }
 
   getCurrentTab(): Tab | undefined {
