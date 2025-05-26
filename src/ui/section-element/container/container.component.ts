@@ -17,6 +17,7 @@ import { MyButtonComponent } from '../../base-element/my-button/my-button.compon
 import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
 import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.component';
 import { ThemeService } from '../../../service/theme.service';
+import { KeyboardShortcutsService } from '../../../service/keyboard-shortcuts.service';
 
 @Component({
   selector: 'app-container',
@@ -51,6 +52,7 @@ export class ContainerComponent implements OnInit {
     private tabService: TabService,
     private taskService: TaskService,
     protected themeService: ThemeService,
+    private keyboardShortcutsService: KeyboardShortcutsService,
   ) {}
 
   ngOnInit() {
@@ -61,6 +63,12 @@ export class ContainerComponent implements OnInit {
     this.taskService.tasks$.subscribe((tasks) => {
       this.tasks = tasks;
       this.showPlaceholderImage = true;
+    });
+
+    this.keyboardShortcutsService.createTask$.subscribe(() => {
+      if (this.selectedTab !== undefined) {
+        this.openAddTaskModal();
+      }
     });
   }
 

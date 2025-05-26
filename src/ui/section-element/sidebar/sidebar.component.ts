@@ -18,6 +18,7 @@ import { MyButtonComponent } from '../../base-element/my-button/my-button.compon
 import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
 import { TruncatePipe } from '../../../pipe/truncate.pipe';
 import { ConfirmationModalService } from '../../../service/confirmation-modal.service';
+import { KeyboardShortcutsService } from '../../../service/keyboard-shortcuts.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -55,10 +56,15 @@ export class SidebarComponent implements OnInit {
     private tabService: TabService,
     private confirmationModalService: ConfirmationModalService,
     protected themeService: ThemeService,
+    private keyboardShortcutsService: KeyboardShortcutsService,
   ) {}
 
   ngOnInit() {
     this.initTabs();
+
+    this.keyboardShortcutsService.createTab$.subscribe(() => {
+      this.addTab();
+    });
   }
 
   private initTabs() {
