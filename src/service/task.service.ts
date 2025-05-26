@@ -82,10 +82,29 @@ export class TaskService {
     this.tasksSubject.next(updatedTasks);
   }
 
-  deleteTask(taskId: string): void {
-    const currentTasks = this.tasksSubject.getValue();
-    const filteredTasks = currentTasks.filter((task) => task.id !== taskId);
-    this.tasksSubject.next(filteredTasks);
+  deleteTask(taskToDelete: Task): void {
+    db.tasks
+      .delete(taskToDelete.id)
+      .then(() => {
+        const currentTasks = this.tasksSubject.getValue();
+        const filteredTasks = currentTasks.filter(
+          (task) => task.id !== taskToDelete.id,
+        );
+        this.tasksSubject.next(filteredTasks);
+
+        this.tabService.updateCountersMap(this.tabService.getCurrentTab()!);
+
+        this.toastNotificationService.showNotification(
+          ToastNotificationEnum.SUCCESS,
+          'Task deleted successfully',
+        );
+      })
+      .catch((error) => {
+        this.toastNotificationService.showNotification(
+          ToastNotificationEnum.ERROR,
+          'Error deleting task: ' + error,
+        );
+      });
   }
 
   setSelectedTask(task: Task | undefined): void {

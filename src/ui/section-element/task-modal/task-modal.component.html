@@ -32,6 +32,7 @@
           <app-my-button
             [buttonTypology]="ButtonTypologyEnum.ICON_MODAL"
             [icon]="Trash2"
+            (onClick$)="deleteTask()"
           />
           <app-my-button
             [buttonTypology]="ButtonTypologyEnum.ICON_MODAL"

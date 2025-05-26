@@ -9,6 +9,7 @@ import { ButtonColorEnum } from '../../../enum/button-color.enum';
 import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
 import { Pencil, Trash2 } from 'lucide-angular';
 import HSOverlay from '@preline/overlay';
+import { ConfirmationModalService } from '../../../service/confirmation-modal.service';
 
 @Component({
   selector: 'app-task-modal',
@@ -26,7 +27,10 @@ export class TaskModalComponent implements OnInit {
   protected readonly Pencil = Pencil;
   protected readonly Trash2 = Trash2;
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private confirmationModalService: ConfirmationModalService,
+  ) {}
 
   ngOnInit() {
     this.taskService.selectedTask$.subscribe((task) => {
@@ -38,6 +42,23 @@ export class TaskModalComponent implements OnInit {
     if (this.selectedTask !== undefined) {
       this.taskService.markAsDone(this.selectedTask);
       HSOverlay.close('#task-modal');
+    }
+  }
+
+  deleteTask() {
+    if (this.selectedTask !== undefined) {
+      this.confirmationModalService.open(
+        {
+          title: 'Delete task',
+          message: 'Are you sure you want to delete this task?',
+          confirmButtonText: 'Delete',
+          cancelButtonText: 'Cancel',
+        },
+        () => {
+          this.taskService.deleteTask(this.selectedTask!);
+          HSOverlay.close('#task-modal');
+        },
+      );
     }
   }
 }

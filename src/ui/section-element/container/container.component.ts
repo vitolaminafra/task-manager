@@ -56,8 +56,6 @@ export class ContainerComponent implements OnInit {
   ngOnInit() {
     this.tabService.currentTab$.subscribe((tab) => {
       this.selectedTab = tab;
-
-      console.log(this.selectedTab);
     });
 
     this.taskService.tasks$.subscribe((tasks) => {
