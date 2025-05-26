@@ -1,5 +1,6 @@
 <div
   class="h-full flex flex-col bg-white border border-gray-200 shadow-2xs rounded-xl p-4 md:p-5 dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70"
+  [ngClass]="{ 'opacity-60': task!.isCompleted }"
 >
   <div class="flex justify-between">
     <h3

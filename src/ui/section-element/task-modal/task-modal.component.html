@@ -28,10 +28,13 @@
           </p>
         </div>
 
-        <div class="flex items-center gap-x-2">
+        <div class="flex items-center gap-x-5">
           <app-my-button
             [buttonTypology]="ButtonTypologyEnum.ICON_MODAL"
-            [buttonColor]="ButtonColorEnum.BLUE"
+            [icon]="Trash2"
+          />
+          <app-my-button
+            [buttonTypology]="ButtonTypologyEnum.ICON_MODAL"
             [icon]="Pencil"
           />
           <div class="hs-tooltip inline-block [--placement:bottom]">

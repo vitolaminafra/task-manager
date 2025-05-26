@@ -7,7 +7,8 @@ import { TaskService } from '../../../service/task.service';
 import { MyButtonComponent } from '../../base-element/my-button/my-button.component';
 import { ButtonColorEnum } from '../../../enum/button-color.enum';
 import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
-import { Pencil } from 'lucide-angular';
+import { Pencil, Trash2 } from 'lucide-angular';
+import HSOverlay from '@preline/overlay';
 
 @Component({
   selector: 'app-task-modal',
@@ -23,6 +24,7 @@ export class TaskModalComponent implements OnInit {
   protected readonly ButtonTypologyEnum = ButtonTypologyEnum;
 
   protected readonly Pencil = Pencil;
+  protected readonly Trash2 = Trash2;
 
   constructor(private taskService: TaskService) {}
 
@@ -35,6 +37,7 @@ export class TaskModalComponent implements OnInit {
   markAsCompleted() {
     if (this.selectedTask !== undefined) {
       this.taskService.markAsDone(this.selectedTask);
+      HSOverlay.close('#task-modal');
     }
   }
 }

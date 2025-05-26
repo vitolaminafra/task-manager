@@ -3,7 +3,7 @@ import { TaskCardComponent } from '../task-card/task-card.component';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
 import { Task } from '../../../class/task';
 import HSOverlay from '@preline/overlay';
-import { NgForOf, NgIf } from '@angular/common';
+import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { TabService } from '../../../service/tab.service';
 import { TaskService } from '../../../service/task.service';
 import { Tab } from '../../../class/tab';
@@ -23,6 +23,7 @@ import { ThemeService } from '../../../service/theme.service';
     MyButtonComponent,
     AddTaskModalComponent,
     NgIf,
+    NgClass,
   ],
   templateUrl: './container.component.html',
   styleUrl: './container.component.css',
@@ -49,6 +50,8 @@ export class ContainerComponent implements OnInit {
   ngOnInit() {
     this.tabService.currentTab$.subscribe((tab) => {
       this.selectedTab = tab;
+
+      console.log(this.selectedTab);
     });
 
     this.taskService.tasks$.subscribe((tasks) => {
@@ -68,5 +71,12 @@ export class ContainerComponent implements OnInit {
         this.addTaskModal.resetForm();
       }
     });
+  }
+
+  doneAtBottom() {
+    if (this.selectedTab !== undefined) {
+      this.selectedTab.isDoneAtBottom = !this.selectedTab.isDoneAtBottom;
+      this.taskService.doneAtBottom(this.selectedTab?.isDoneAtBottom);
+    }
   }
 }

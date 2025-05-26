@@ -111,4 +111,10 @@ export class TabService {
         );
       });
   }
+
+  updateDoneAtBottom(doneAtBottom: boolean) {
+    db.tabs
+      .update(this.getCurrentTab(), { isDoneAtBottom: doneAtBottom })
+      .then(() => {});
+  }
 }

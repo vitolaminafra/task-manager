@@ -35,6 +35,11 @@ export class TaskService {
           .toArray()
           .then((tasks) => {
             this.tasksSubject.next(tasks);
+            if (tab.isDoneAtBottom) {
+              this.orderByCompletedLast();
+            } else {
+              this.orderById();
+            }
           });
       }
     });
@@ -79,5 +84,29 @@ export class TaskService {
 
   setSelectedTask(task: Task | undefined): void {
     this.selectedTaskSubject.next(task);
+  }
+
+  doneAtBottom(isDoneAtBottom: boolean): void {
+    if (isDoneAtBottom) {
+      this.orderByCompletedLast();
+    } else {
+      this.orderById();
+    }
+
+    this.tabService.updateDoneAtBottom(isDoneAtBottom);
+  }
+
+  private orderByCompletedLast() {
+    const sortedTasks = [...this.tasksSubject.getValue()].sort((a, b) => {
+      return a.isCompleted === b.isCompleted ? 0 : a.isCompleted ? 1 : -1;
+    });
+    this.tasksSubject.next(sortedTasks);
+  }
+
+  private orderById() {
+    const sortedTasks = [...this.tasksSubject.getValue()].sort((a, b) => {
+      return Number(a.id) - Number(b.id);
+    });
+    this.tasksSubject.next(sortedTasks);
   }
 }
