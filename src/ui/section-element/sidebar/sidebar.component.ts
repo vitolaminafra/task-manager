@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  Circle,
   CirclePlus,
   LucideAngularModule,
   Moon,
-  SquareCheck,
+  Square,
+  SquareCheckBig,
   Sun,
   Trash2,
 } from 'lucide-angular';
@@ -36,8 +36,8 @@ import { ConfirmationModalService } from '../../../service/confirmation-modal.se
 export class SidebarComponent implements OnInit {
   selectedTabPosition: number = -1;
 
-  protected readonly GridIcon = Circle;
-  protected readonly CompletedIcon = SquareCheck;
+  protected readonly NotCompletedIcon = Square;
+  protected readonly CompletedIcon = SquareCheckBig;
 
   protected readonly AddTabIcon = CirclePlus;
   protected readonly DeleteTabIcon = Trash2;

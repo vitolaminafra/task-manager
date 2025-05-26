@@ -6,26 +6,17 @@
       {{ selectedTab ? selectedTab!.title : "No tab selected" }}
     </h1>
     <div class="flex gap-x-3">
-      <div class="inline-flex rounded-lg shadow-2xs">
-        <button
-          type="button"
-          [ngClass]="{
-            'bg-gray-200! dark:bg-neutral-600!': selectedTab?.isDoneAtBottom,
-          }"
-          class="py-3 px-4 inline-flex items-center gap-x-2 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-sm font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-200 focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-600"
-          (click)="doneAtBottom()"
-        >
-          {{
-            selectedTab?.isDoneAtBottom ? "Done at bottom" : "Ordered by date"
-          }}
-        </button>
-        <button
-          type="button"
-          class="py-3 px-4 inline-flex items-center gap-x-2 -ms-px first:rounded-s-lg first:ms-0 last:rounded-e-lg text-sm font-medium focus:z-10 border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-200 focus:outline-hidden disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-600"
-        >
-          Order by priority
-        </button>
-      </div>
+      <app-my-button
+        [buttonTypology]="ButtonTypologyEnum.ICON_AND_TEXT"
+        [text]="'Order by priority'"
+        [icon]="
+          selectedTab?.isOrderByPriority === true
+            ? SelectedIcon
+            : NotSelectedIcon
+        "
+        [disabled]="!selectedTab"
+        (onClick$)="orderByPriority()"
+      />
       <app-my-button
         [buttonTypology]="ButtonTypologyEnum.ICON_AND_TEXT"
         [text]="'Add new task'"

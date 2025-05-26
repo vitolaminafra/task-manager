@@ -112,9 +112,9 @@ export class TabService {
       });
   }
 
-  updateDoneAtBottom(doneAtBottom: boolean) {
+  updateOrderByPriority(isOrderByPriority: boolean) {
     db.tabs
-      .update(this.getCurrentTab(), { isDoneAtBottom: doneAtBottom })
+      .update(this.getCurrentTab(), { isOrderByPriority: isOrderByPriority })
       .then(() => {});
   }
 }

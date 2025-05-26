@@ -2,7 +2,6 @@ export class Tab {
   id: number | undefined;
   title: string;
   isActive: boolean = false;
-  isDoneAtBottom: boolean = false;
   isOrderByPriority: boolean = false;
 
   constructor(title: string, isActive?: boolean) {

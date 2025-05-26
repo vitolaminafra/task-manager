@@ -5,6 +5,7 @@ import { TabService } from './tab.service';
 import { ToastNotificationService } from './toast-notification.service';
 import { ToastNotificationEnum } from '../enum/toast-notification.enum';
 import { db } from '../db/db';
+import { PriorityEnum } from '../enum/priority.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -35,10 +36,11 @@ export class TaskService {
           .toArray()
           .then((tasks) => {
             this.tasksSubject.next(tasks);
-            if (tab.isDoneAtBottom) {
-              this.orderByCompletedLast();
-            } else {
-              this.orderById();
+
+            this.orderByCompletedLast();
+
+            if (tab.isOrderByPriority) {
+              this.orderByPriorityDescending();
             }
           });
       }
@@ -53,6 +55,8 @@ export class TaskService {
 
       this.tabService.updateCountersMap(this.tabService.getCurrentTab()!);
 
+      this.handleOrder();
+
       this.toastNotificationService.showNotification(
         ToastNotificationEnum.SUCCESS,
         'Task added successfully',
@@ -65,6 +69,8 @@ export class TaskService {
       task.isCompleted = true;
 
       this.tabService.updateCountersMap(this.tabService.getCurrentTab()!);
+
+      this.handleOrder();
     });
   }
 
@@ -86,16 +92,6 @@ export class TaskService {
     this.selectedTaskSubject.next(task);
   }
 
-  doneAtBottom(isDoneAtBottom: boolean): void {
-    if (isDoneAtBottom) {
-      this.orderByCompletedLast();
-    } else {
-      this.orderById();
-    }
-
-    this.tabService.updateDoneAtBottom(isDoneAtBottom);
-  }
-
   private orderByCompletedLast() {
     const sortedTasks = [...this.tasksSubject.getValue()].sort((a, b) => {
       return a.isCompleted === b.isCompleted ? 0 : a.isCompleted ? 1 : -1;
@@ -108,5 +104,43 @@ export class TaskService {
       return Number(a.id) - Number(b.id);
     });
     this.tasksSubject.next(sortedTasks);
+
+    this.orderByCompletedLast();
+  }
+
+  orderByPriority(isOrderByPriority: boolean) {
+    if (isOrderByPriority) {
+      this.orderByPriorityDescending();
+    } else {
+      this.orderById();
+    }
+    this.tabService.updateOrderByPriority(isOrderByPriority);
+  }
+
+  private orderByPriorityDescending() {
+    const sortedTasks = [...this.tasksSubject.getValue()].sort((a, b) => {
+      if (!a.isCompleted && !b.isCompleted) {
+        const priorityOrder: Record<PriorityEnum, number> = {
+          [PriorityEnum.HIGH]: 1,
+          [PriorityEnum.MEDIUM]: 2,
+          [PriorityEnum.LOW]: 3,
+          [PriorityEnum.DONE]: 4,
+        };
+
+        return priorityOrder[a.priority] - priorityOrder[b.priority];
+      }
+
+      return 0;
+    });
+
+    this.tasksSubject.next(sortedTasks);
+  }
+
+  handleOrder() {
+    this.orderById();
+
+    if (this.tabService.getCurrentTab()!.isOrderByPriority) {
+      this.orderByPriorityDescending();
+    }
   }
 }
