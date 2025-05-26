@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
   Circle,
-  CircleCheck,
   CirclePlus,
   LucideAngularModule,
   Moon,
@@ -18,7 +17,7 @@ import HSOverlay from '@preline/overlay';
 import { MyButtonComponent } from '../../base-element/my-button/my-button.component';
 import { ButtonTypologyEnum } from '../../../enum/button-typology.enum';
 import { TruncatePipe } from '../../../pipe/truncate.pipe';
-import { TaskService } from '../../../service/task.service';
+import { ConfirmationModalService } from '../../../service/confirmation-modal.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -54,7 +53,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private tabService: TabService,
-    protected taskService: TaskService,
+    private confirmationModalService: ConfirmationModalService,
     protected themeService: ThemeService,
   ) {}
 
@@ -98,16 +97,20 @@ export class SidebarComponent implements OnInit {
   }
 
   deleteTab() {
-    const toDeletePosition = this.selectedTabPosition;
-
-    this.selectedTabPosition = -1;
-
-    this.tabService.changeSelectedTab(undefined);
-
-    this.tabService.deleteTab(this.tabs[toDeletePosition]);
-
-    this.initTabs();
+    this.confirmationModalService.open(
+      {
+        title: 'Delete tab',
+        message: 'Are you sure you want to delete this tab?',
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel',
+      },
+      () => {
+        const toDeletePosition = this.selectedTabPosition;
+        this.selectedTabPosition = -1;
+        this.tabService.changeSelectedTab(undefined);
+        this.tabService.deleteTab(this.tabs[toDeletePosition]);
+        this.initTabs();
+      },
+    );
   }
-
-  protected readonly noTaskIcon = CircleCheck;
 }

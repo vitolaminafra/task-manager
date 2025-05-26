@@ -17,6 +17,7 @@ export class AddTabModalComponent {
   tabNameInput = new FormControl('');
 
   constructor(private tabService: TabService) {}
+
   addTab() {
     this.tabService.addTab(new Tab(this.tabNameInput.value ?? '', false));
     this.tabNameInput.reset();
