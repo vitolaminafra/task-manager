@@ -93,29 +93,90 @@
         </ul>
       </div>
     </nav>
-    <div class="flex justify-between p-4">
-      <app-my-button
-        [buttonTypology]="ButtonTypologyEnum.ICON_ONLY"
-        [icon]="AddTabIcon"
-        [tooltip]="'Add new tab'"
-        (onClick$)="addTab()"
-      />
+    <div class="flex flex-col gap-y-2">
+      <div class="flex justify-center items-center">
+        <kbd
+          class="min-h-4.5 inline-flex justify-center items-center px-1 bg-gray-200 border border-transparent font-mono text-xs text-gray-800 rounded-md dark:bg-neutral-700 dark:text-neutral-200"
+        >
+          <svg
+            class="shrink-0 size-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m18 15-6-6-6 6"></path>
+          </svg>
+        </kbd>
+        <span class="mx-1 text-gray-800 dark:text-gray-200 text-sm">+</span>
+        <kbd
+          class="min-h-4.5 inline-flex justify-center items-center px-1 bg-gray-200 border border-transparent font-mono text-xs text-gray-800 rounded-md dark:bg-neutral-700 dark:text-neutral-200"
+        >
+          T
+        </kbd>
+        <span class="mx-1 text-gray-800 dark:text-gray-200 text-sm"
+          >for a new tab</span
+        >
+      </div>
+      <div class="flex justify-center items-center">
+        <kbd
+          class="min-h-4.5 inline-flex justify-center items-center px-1 bg-gray-200 border border-transparent font-mono text-xs text-gray-800 rounded-md dark:bg-neutral-700 dark:text-neutral-200"
+        >
+          <svg
+            class="shrink-0 size-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m18 15-6-6-6 6"></path>
+          </svg>
+        </kbd>
+        <span class="mx-1 text-gray-800 dark:text-gray-200 text-sm">+</span>
+        <kbd
+          class="min-h-4.5 inline-flex justify-center items-center px-1 bg-gray-200 border border-transparent font-mono text-xs text-gray-800 rounded-md dark:bg-neutral-700 dark:text-neutral-200"
+        >
+          N
+        </kbd>
+        <span class="mx-1 text-gray-800 dark:text-gray-200 text-sm"
+          >for a new task</span
+        >
+      </div>
+      <div class="flex justify-between p-4">
+        <app-my-button
+          [buttonTypology]="ButtonTypologyEnum.ICON_ONLY"
+          [icon]="AddTabIcon"
+          [tooltip]="'Add new tab'"
+          (onClick$)="addTab()"
+        />
 
-      <app-my-button
-        *ngIf="tabs.length > 0 && selectedTabPosition !== -1"
-        [buttonTypology]="ButtonTypologyEnum.ICON_ONLY"
-        [icon]="DeleteTabIcon"
-        [tooltip]="'Delete this tab'"
-        (onClick$)="deleteTab()"
-      />
+        <app-my-button
+          *ngIf="tabs.length > 0 && selectedTabPosition !== -1"
+          [buttonTypology]="ButtonTypologyEnum.ICON_ONLY"
+          [icon]="DeleteTabIcon"
+          [tooltip]="'Delete this tab'"
+          (onClick$)="deleteTab()"
+        />
 
-      <app-my-button
-        [buttonTypology]="ButtonTypologyEnum.ICON_ONLY"
-        [icon]="themeService.isDarkMode() ? SunIcon : MoonIcon"
-        [tooltip]="themeService.isDarkMode() ? 'Light mode' : 'Dark mode'"
-        (onClick$)="toggleDarkMode()"
-      />
+        <app-my-button
+          [buttonTypology]="ButtonTypologyEnum.ICON_ONLY"
+          [icon]="themeService.isDarkMode() ? SunIcon : MoonIcon"
+          [tooltip]="themeService.isDarkMode() ? 'Light mode' : 'Dark mode'"
+          (onClick$)="toggleDarkMode()"
+        />
+      </div>
     </div>
+
     <!-- End Body -->
   </div>
 </div>
