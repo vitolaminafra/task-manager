@@ -25,12 +25,14 @@
   <div class="relative flex flex-col h-full max-h-full">
     <!-- Header -->
     <header class="p-4 flex justify-between items-center gap-x-2">
-      <a
-        class="flex-none font-semibold text-xl text-black focus:outline-hidden focus:opacity-80 dark:text-white"
-        href="#"
-        aria-label="Brand"
-        >Task manager</a
-      >
+      <div class="flex items-center gap-x-2">
+        <img src="logo.png" alt="logo" class="size-8" />
+        <a
+          class="flex-none font-semibold text-xl text-black focus:outline-hidden focus:opacity-80 dark:text-white cursor-default"
+          aria-label="Brand"
+          >Task manager</a
+        >
+      </div>
 
       <div class="lg:hidden -me-2">
         <!-- Close Button -->
@@ -77,9 +79,7 @@
               (click)="onTabClick(i)"
             >
               <lucide-angular
-                [img]="
-                  tabCounter.get(tab) == 0 ? CompletedIcon : NotCompletedIcon
-                "
+                [img]="DashboardIcon"
                 [size]="16"
               ></lucide-angular>
               {{ tab.title | truncate: 15 }}

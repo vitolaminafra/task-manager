@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   CirclePlus,
+  LayoutDashboard,
   LucideAngularModule,
   Moon,
   Square,
@@ -38,6 +39,7 @@ export class SidebarComponent implements OnInit {
 
   protected readonly NotCompletedIcon = Square;
   protected readonly CompletedIcon = SquareCheckBig;
+  protected readonly DashboardIcon = LayoutDashboard;
 
   protected readonly AddTabIcon = CirclePlus;
   protected readonly DeleteTabIcon = Trash2;
